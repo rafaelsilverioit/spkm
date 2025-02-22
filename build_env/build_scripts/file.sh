@@ -1,4 +1,4 @@
-. $DIST_ROOT/build_env/build_scripts/inc-start.sh $1 $(basename $0)
+. "$DIST_ROOT"/build_env/build_scripts/inc-start.sh "$1" "$(basename "$0")"
 
 mkdir build
 pushd build
@@ -9,11 +9,11 @@ pushd build
   make
 popd
 
-./configure --prefix=/usr --host=$LFS_TGT --build=$(./config.guess)
+./configure --prefix=/usr --host="$LFS_TGT" --build="$(./config.guess)"
 
-make FILE_COMPILE=$(pwd)/build/src/file
+make FILE_COMPILE="$(pwd)"/build/src/file
 
-make DESTDIR=$LFS install
+make DESTDIR="$LFS" install
 
 
-. $DIST_ROOT/build_env/build_scripts/inc-end.sh $1 $(basename $0)
+. "$DIST_ROOT"/build_env/build_scripts/inc-end.sh "$1" "$(basename "$0")"

@@ -1,4 +1,4 @@
-. $DIST_ROOT/build_env/build_scripts/inc-start.sh $1 $(basename $0)
+. "$DIST_ROOT"/build_env/build_scripts/inc-start.sh "$1" "$(basename "$0")"
 
 ln -s gthr-posix.h libgcc/gthr-default.h
 mkdir -v build
@@ -8,9 +8,9 @@ cd       build
     --prefix=/usr                    \
     --disable-multilib               \
     --disable-nls                    \
-    --host=$(uname -m)-lfs-linux-gnu \
+    --host="$(uname -m)-lfs-linux-gnu" \
     --disable-libstdcxx-pch
 
 make && make install
 
-. $DIST_ROOT/build_env/build_scripts/inc-end.sh $1 $(basename $0)
+. "$DIST_ROOT"/build_env/build_scripts/inc-end.sh "$1" "$(basename "$0")"

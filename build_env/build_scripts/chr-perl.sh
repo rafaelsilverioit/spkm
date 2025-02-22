@@ -1,4 +1,4 @@
-. $DIST_ROOT/build_env/build_scripts/inc-start.sh $1 $(basename $0)
+. "$DIST_ROOT"/build_env/build_scripts/inc-start.sh "$1" "$(basename "$0")"
 
 sh Configure -des                                        \
              -Dprefix=/usr                               \
@@ -11,4 +11,4 @@ sh Configure -des                                        \
              -Dvendorarch=/usr/lib/perl5/5.32/vendor_perl
 make && make install
 
-. $DIST_ROOT/build_env/build_scripts/inc-end.sh $1 $(basename $0)
+. "$DIST_ROOT"/build_env/build_scripts/inc-end.sh "$1" "$(basename "$0")"

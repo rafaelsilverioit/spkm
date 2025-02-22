@@ -2,18 +2,18 @@ set -e
 
 echo "Preparing ${LFS:?}"
 
-chown -R root:root $LFS/{usr,lib,var,etc,bin,sbin,tools,lib64}
-mkdir -pv $LFS/{dev,proc,sys,run}
+chown -R root:root "$LFS/{usr,lib,var,etc,bin,sbin,tools,lib64}"
+mkdir -pv "$LFS/{dev,proc,sys,run}"
 
-if ! test -c $LFS/dev/console ; then
-mknod -m 600 $LFS/dev/console c 5 1
-mknod -m 666 $LFS/dev/null c 1 3
+if ! test -c "$LFS/dev/console" ; then
+mknod -m 600 "$LFS/dev/console" c 5 1
+mknod -m 666 "$LFS/dev/null" c 1 3
 fi
 
-bash -e $DIST_ROOT/build_env/build_scripts/mount-virt.sh
+bash -e "$DIST_ROOT/build_env/build_scripts/mount-virt.sh"
 
-if ! test -f $LFS/etc/passwd ; then
-cat > $LFS/etc/passwd << "EOF"
+if ! test -f "$LFS/etc/passwd" ; then
+cat > "$LFS/etc/passwd" << "EOF"
 root:x:0:0:root:/root:/bin/bash
 bin:x:1:1:bin:/dev/null:/bin/false
 daemon:x:6:6:Daemon User:/dev/null:/bin/false
@@ -30,7 +30,7 @@ uuidd:x:80:80:UUID Generation Daemon User:/dev/null:/bin/false
 nobody:x:99:99:Unprivileged User:/dev/null:/bin/false
 EOF
 
-cat > $LFS/etc/group << "EOF"
+cat > "$LFS/etc/group" << "EOF"
 root:x:0:
 bin:x:1:daemon
 sys:x:2:
@@ -75,13 +75,13 @@ chroot "$LFS" /usr/bin/env -i   \
     PATH=/bin:/usr/bin:/sbin:/usr/sbin \
     /dist/build_env/build_scripts/finish-chroot.sh
 
-bash -e $DIST_ROOT/build_env/build_scripts/umount-virt.sh
+bash -e "$DIST_ROOT"/build_env/build_scripts/umount-virt.sh
 
-strip --strip-debug $LFS/usr/lib/* | true
-strip --strip-unneeded $LFS/usr/{,s}bin/* | true
-strip --strip-unneeded $LFS/tools/bin/* | true
+strip --strip-debug "$LFS/usr/lib/*" | true
+strip --strip-unneeded "$LFS/usr/{,s}bin/*" | true
+strip --strip-unneeded "$LFS/tools/bin/*" | true
 
 #uncomment to build the tar
-#rm -rf $LFS/sources
-#cd $LFS
-#tar -cJpf $DIST_ROOT/build_env/dist-temp-tools.txz .
+#rm -rf "$LFS/sources"
+#cd "$LFS"
+#tar -cJpf "$DIST_ROOT/build_env/dist-temp-tools.txz" .

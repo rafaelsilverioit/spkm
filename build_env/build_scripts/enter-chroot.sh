@@ -1,7 +1,7 @@
 
 echo "Entering Chroot: ${LFS:?}"
 
-bash -e $DIST_ROOT/build_env/build_scripts/mount-virt.sh
+bash -e "$DIST_ROOT"/build_env/build_scripts/mount-virt.sh
 
 chroot "$LFS" /usr/bin/env -i   \
     HOME=/root                  \
@@ -10,4 +10,4 @@ chroot "$LFS" /usr/bin/env -i   \
     PATH=/bin:/usr/bin:/sbin:/usr/sbin \
     /bin/bash --login +h
 
-bash -e $DIST_ROOT/build_env/build_scripts/umount-virt.sh
+bash -e "$DIST_ROOT"/build_env/build_scripts/umount-virt.sh

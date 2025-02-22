@@ -3,7 +3,7 @@ echo "GCC Pass 1"
 echo
 sleep 1
 
-cd $LFS/sources
+cd "$LFS"/sources
 tar -xf gcc-10.2.0.tar.xz
 cd gcc-10.2.0
 
@@ -21,10 +21,10 @@ mkdir -v build
 cd       build
 
 ../configure                                       \
-    --target=$LFS_TGT                              \
-    --prefix=$LFS/tools                            \
+    --target="$LFS_TGT"                            \
+    --prefix="$LFS"/tools                          \
     --with-glibc-version=2.11                      \
-    --with-sysroot=$LFS                            \
+    --with-sysroot="$LFS"                          \
     --with-newlib                                  \
     --without-headers                              \
     --enable-initfini-array                        \
@@ -46,8 +46,8 @@ make install
 
 cd ..
 cat gcc/limitx.h gcc/glimits.h gcc/limity.h > \
-  `dirname $($LFS_TGT-gcc -print-libgcc-file-name)`/install-tools/include/limits.h
+  "dirname $("$LFS_TGT-gcc" -print-libgcc-file-name)"/install-tools/include/limits.h
 
 
-cd $LFS/sources
+cd "$LFS"/sources
 rm -rf gcc-10.2.0

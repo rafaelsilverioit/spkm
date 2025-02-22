@@ -29,7 +29,7 @@ chmod -v 600  /var/log/btmp
 
 #Start building other packages!
 export DIST_ROOT=/dist
-cd $DIST_ROOT/build_env
+cd "$DIST_ROOT"/build_env
 
 bash -e build_scripts/chr-libstdcpp-pass-2.sh gcc-10.2.0.tar.xz
 bash -e build_scripts/chr-gettext.sh gettext-0.21.tar.xz

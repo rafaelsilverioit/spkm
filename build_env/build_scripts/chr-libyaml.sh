@@ -1,15 +1,15 @@
-FILE=$1
+FILE="$1"
 
 echo 
-echo "Processing $(basename $0)"
+echo "Processing $(basename "$0")"
 echo
 sleep 1
 
-cd $LFS/sources
+cd "$LFS"/sources
 echo "Extracting..."
-tar -xf $FILE
+tar -xf "$FILE"
 DIR=libyaml-0.2.4
-cd $DIR
+cd "$DIR"
 echo "Changed to build path"
 pwd
 
@@ -22,9 +22,9 @@ echo
 echo "Cleaning up..."
 echo
 
-cd $LFS/sources
-rm -rf $DIR
+cd "$LFS"/sources
+rm -rf "$DIR"
 
 echo
-echo "Done Processing $(basename $0)"
+echo "Done Processing $(basename "$0")"
 echo

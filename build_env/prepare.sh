@@ -1,43 +1,43 @@
 echo "Dist Root: ${DIST_ROOT:?}"
 echo "LFS: ${LFS:?}"
 
-mkdir -p $LFS/sources
+mkdir -p "$LFS/sources"
 
-for f in $(cat $DIST_ROOT/build_env/build_env_list)
+for f in $(cat "$DIST_ROOT"/build_env/build_env_list)
 do
-    bn=$(basename $f)
+    bn=$(basename "$f")
     
-    if ! test -f $LFS/sources/$bn ; then
-        wget $f -O $LFS/sources/$bn
+    if ! test -f "$LFS/sources/$bn" ; then
+        wget "$f" -O "$LFS/sources/$bn"
     fi
 
 done;
 
-mkdir -pv $LFS/{bin,etc,lib,sbin,usr,var,lib64,tools}
+mkdir -pv "$LFS/{bin,etc,lib,sbin,usr,var,lib64,tools}"
 
-if ! test $(id -u distbuild) ; then
+if ! test "$(id -u distbuild)" ; then
 
 groupadd distbuild
 useradd -s /bin/bash -g distbuild -m -k /dev/null distbuild
 passwd distbuild
-chown -v distbuild $LFS/{usr,lib,var,etc,bin,sbin,tools,lib64,sources}
+chown -v distbuild "$LFS/{usr,lib,var,etc,bin,sbin,tools,lib64,sources}"
 
 echo "distbuild ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/sudoers_distbuild
 
 dbhome=$(eval echo "~distbuild")
 
-cat > $dbhome/.bash_profile << "EOF"
+cat > "$dbhome/.bash_profile" << "EOF"
 exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash
 EOF
 
-cat > $dbhome/.bashrc << EOF
+cat > "$dbhome/.bashrc" << EOF
 set +h
 umask 022
 LFS=$LFS
-export DIST_ROOT=$DIST_ROOT
+export DIST_ROOT="$DIST_ROOT"
 EOF
 
-cat >> $dbhome/.bashrc << "EOF"
+cat >> "$dbhome/.bashrc" << "EOF"
 LC_ALL=POSIX
 LFS_TGT=$(uname -m)-lfs-linux-gnu
 PATH=/usr/bin

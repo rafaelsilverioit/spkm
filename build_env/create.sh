@@ -3,13 +3,13 @@ set -e
 echo "Dist Root: ${DIST_ROOT:?}"
 echo "LFS: ${LFS:?}"
 
-if ! test $(whoami) == "distbuild" ; then
+if ! test "$(whoami)" == "distbuild" ; then
     echo "Must run as distbuild!"
-    exit -1
+    exit 1
 fi
 
 echo "Creating build environment..."
-cd $DIST_ROOT/build_env
+cd "$DIST_ROOT/build_env"
 
 bash -e build_scripts/binutils-pass-1.sh binutils-2.36.1.tar.xz
 bash -e build_scripts/gcc-pass-1.sh gcc-10.2.0.tar.xz
